@@ -638,11 +638,11 @@ export const EXPLAINERS = {
     altium: ['Diode cathode to the +V side of the coil, anode to the switched side (reverse-biased in normal operation).', 'Place it right across the coil terminals on the PCB, close to the relay/motor connector.'],
   },
   stargnd: {
-    title: 'AGND / PGND star point',
-    blurb: 'Return current of a motor is big and noisy. If it shares a ground segment with a sensor, Ohm\'s law (V = I·R) puts that noise on the sensor reference. Keep them separate, join them in one place.',
+    title: 'Shared return paths & ground partitioning',
+    blurb: 'Return current of a motor is big and noisy. If it shares a ground segment with a sensor, Ohm\'s law (V = I·R) puts that noise on the sensor reference. Keep large return currents away from sensitive circuitry: with a solid plane and careful placement, or (where justified) separate grounds joined at one point.',
     Cmp: StarGnd,
     bad: 'Shared ground segment: motor current changes the sensor\'s ground.',
-    good: 'Separate returns joined at a single star point.',
+    good: 'Separate returns joined at one deliberate point (one way to control where the current flows).',
     altium: ['Use distinct nets (AGND, PGND) and join them at one location with a Net Tie component or a 0 Ω resistor so ERC and DRC stay happy.', 'Do not rely on different ground *symbols* – a symbol style can silently join or split nets. Check the net in the Navigator panel.'],
   },
   planesplit: {
@@ -678,8 +678,8 @@ export const EXPLAINERS = {
     altium: ['Place the capacitor right at the ADC pin and route signal → R → C → pin so the cap sees the pin.', 'Keep the ADC reference (VREF) filtered separately from the digital 3V3.'],
   },
   diffpair: {
-    title: 'Differential-pair length matching',
-    blurb: 'A differential receiver looks at the difference between D+ and D−. If one edge arrives late, the difference is distorted and the common-mode noise rises.',
+    title: 'Differential pairs: length & skew',
+    blurb: 'A differential receiver looks at the difference between D+ and D−. If one edge arrives late, the difference is distorted. Length matching is only part of it: impedance, symmetry and an unbroken reference plane matter too.',
     Cmp: DiffPair,
     bad: 'D− is longer, so the edges arrive at different times.',
     good: 'Meander the short trace until both lengths match.',
@@ -695,6 +695,7 @@ export const EXPLAINERS = {
   },
 }
 
+export const TOOL_IDS = ['tracewidth', 'divider']
 export const ORDER = ['decoupling', 'floating', 'pullup', 'uart', 'flyback', 'stargnd', 'planesplit', 'thermalvia', 'stub', 'rcfilter', 'diffpair', 'viainpad']
 
 /* ---------- viewer ---------- */
