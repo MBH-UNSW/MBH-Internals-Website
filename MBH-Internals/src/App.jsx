@@ -226,7 +226,7 @@ export default function App() {
         )}
       </main>
 
-      <footer>UNSW Bionic Heart · Electrical</footer>
+      <footer>UNSW Bionic Heart</footer>
 
       {modal && (
         <div className="modal" onClick={() => setModal(null)}>
